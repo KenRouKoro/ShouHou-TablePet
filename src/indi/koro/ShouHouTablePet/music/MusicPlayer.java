@@ -25,7 +25,7 @@ import javafx.scene.media.MediaPlayer;
 public class MusicPlayer {
     final CountDownLatch latch = new CountDownLatch(1);
 	Media musicMedia;
-	MediaPlayer musicMediaPlayer ;
+	MediaPlayer musicMediaPlayer=null;
 	String URI;
     /**
      * 
@@ -44,8 +44,6 @@ public class MusicPlayer {
 	    // TODO 自动生成的 catch 块
 	    e.printStackTrace();
 	}
-	
-	String s2 = new File("data/shouhou/cue/回港 未改造.wav").toURI().toString();
     }    
     /**
      *<p>变量名：setURI</p>
@@ -60,8 +58,18 @@ public class MusicPlayer {
     public void play() {
 	musicMediaPlayer.play();
     }
+    /**
+     *<p>方法名：getMusicMediaPlayer</p>
+     *说明：TODO
+     */
+    public MediaPlayer getMusicMediaPlayer() {
+	return musicMediaPlayer;
+    }
     public void stop() {
 	musicMediaPlayer.stop();
+    }
+    public void pause() {
+	musicMediaPlayer.pause();
     }
     
     

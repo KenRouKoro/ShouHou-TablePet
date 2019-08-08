@@ -45,11 +45,12 @@ public class MainWindow extends JPanel {
 	mainJWindow=new JWindow();
 	mainJWindow.setLayout(null);
 	Data.mainJWindow=mainJWindow;
-	this.setBounds(0, 0, Data.initialW, Data.initialH+Data.initialToolW);
-	mainJWindow.setSize(Data.initialW, Data.initialH);
+	this.setBounds(0, 0, Data.initialW+Data.initialToolW, Data.initialH);
+	this.setLayout(null);
+	mainJWindow.setSize(Data.initialW+Data.initialToolW, Data.initialH);
 	mainJWindow.add(this);
 	this.setOpaque(false);
-	mainJWindow.setBackground(new Color(0, 0, 0, 0));
+	mainJWindow.setBackground(new Color(0, 0, 0,0));
 	
 	
     }
