@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="ShouHouTablePet:jar">
+    <output-path>H:/shouhou</output-path>
+    <root id="root">
+      <element id="archive" name="ShouHouTablePet.jar">
+        <element id="module-output" name="ShouHouTablePet" />
+        <element id="directory" name="file">
+          <element id="dir-copy" path="$PROJECT_DIR$/file" />
+        </element>
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="lib" />
+        <element id="library" level="project" name="slf4j-api-1.7.7" />
+      </element>
+    </root>
+  </artifact>
+</component>

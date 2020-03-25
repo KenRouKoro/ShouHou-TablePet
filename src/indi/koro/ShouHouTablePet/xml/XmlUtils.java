@@ -2,43 +2,28 @@ package indi.koro.ShouHouTablePet.xml;
 
 
 //�������� http://carver.iteye.com/blog/411611
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Encapsulating XML common operations.
@@ -184,7 +169,7 @@ public final class XmlUtils {
     /**
      * Gets the descendant elements list from the parent element.
      *
-     * @param parent the parent element in the element tree
+     * @param parent  the parent element in the element tree
      * @param tagName the specified tag name
      * @return the NOT NULL descendant elements list
      */
@@ -205,7 +190,7 @@ public final class XmlUtils {
     /**
      * Gets the immediately descendant element from the parent element.
      *
-     * @param parent the parent element in the element tree
+     * @param parent  the parent element in the element tree
      * @param tagName the specified tag name.
      * @return immediately descendant element of parent element, NULL otherwise.
      */
@@ -222,7 +207,7 @@ public final class XmlUtils {
     /**
      * Gets the immediately child elements list from the parent element.
      *
-     * @param parent the parent element in the element tree
+     * @param parent  the parent element in the element tree
      * @param tagName the specified tag name
      * @return the NOT NULL immediately child elements list
      */
@@ -243,7 +228,7 @@ public final class XmlUtils {
     /**
      * Gets the immediately child element from the parent element.
      *
-     * @param parent the parent element in the element tree
+     * @param parent  the parent element in the element tree
      * @param tagName the specified tag name
      * @return immediately child element of parent element, NULL otherwise
      */
@@ -262,7 +247,7 @@ public final class XmlUtils {
      * element. If there is more than one child element, return the value of the
      * first one.
      *
-     * @param parent the parent element
+     * @param parent  the parent element
      * @param tagName the tag name of the child element
      * @return value of the first child element, NULL if tag not exists
      */
@@ -280,7 +265,7 @@ public final class XmlUtils {
     /**
      * Appends the child element to the parent element.
      *
-     * @param parent the parent element
+     * @param parent  the parent element
      * @param tagName the child element name
      * @return the child element added to the parent element
      */
@@ -293,13 +278,13 @@ public final class XmlUtils {
     /**
      * Appends the child element as well as value to the parent element.
      *
-     * @param parent the parent element
+     * @param parent  the parent element
      * @param tagName the child element name
-     * @param value the child element value
+     * @param value   the child element value
      * @return the child element added to the parent element
      */
     public static Element appendElement(Element parent, String tagName,
-            String value) {
+                                        String value) {
         Element child = appendElement(parent, tagName);
         child.setTextContent(value);
         return child;
@@ -309,7 +294,7 @@ public final class XmlUtils {
      * Appends another element as a child element.
      *
      * @param parent the parent element
-     * @param child the child element to append
+     * @param child  the child element to append
      */
     public static void appendElement(Element parent, Element child) {
         Node tmp = parent.getOwnerDocument().importNode(child, true);
@@ -319,13 +304,13 @@ public final class XmlUtils {
     /**
      * Appends the CDATA element to the parent element.
      *
-     * @param parent the parent element
+     * @param parent  the parent element
      * @param tagName the CDATA element name
-     * @param value the CDATA element value
+     * @param value   the CDATA element value
      * @return the CDATA element added to the parent element
      */
     public static Element appendCDATAElement(Element parent, String tagName,
-            String value) {
+                                             String value) {
         Element child = appendElement(parent, tagName);
         if (value == null) { // avoid "null" word in the XML payload
             value = "";
@@ -420,7 +405,7 @@ public final class XmlUtils {
     /**
      * Saves the node/document/element as XML file.
      *
-     * @param doc the XML node/document/element to save
+     * @param doc  the XML node/document/element to save
      * @param file the XML file to save
      * @throws XmlException problem persisting XML file
      */
@@ -455,7 +440,7 @@ public final class XmlUtils {
     /**
      * Validates the element tree context via given XML schema file.
      *
-     * @param doc the XML document to validate
+     * @param doc        the XML document to validate
      * @param schemaFile the XML schema file instance
      * @throws XmlException error occurs if the schema file not exists
      */
@@ -467,7 +452,7 @@ public final class XmlUtils {
     /**
      * Validates the element tree context via given XML schema file.
      *
-     * @param doc the XML document to validate
+     * @param doc          the XML document to validate
      * @param schemaStream the XML schema file input stream
      * @throws XmlException error occurs if validation fail
      */
@@ -498,7 +483,7 @@ public final class XmlUtils {
     /**
      * Transforms the XML content to XHTML/HTML format string with the XSL.
      *
-     * @param payload the XML payload to convert
+     * @param payload  the XML payload to convert
      * @param xsltFile the XML stylesheet file
      * @return the transformed XHTML/HTML format string
      * @throws XmlException problem converting XML to HTML
@@ -531,12 +516,12 @@ public final class XmlUtils {
     /**
      * Sets the namespace to specific element.
      *
-     * @param element the element to set
-     * @param namespace the namespace to set
+     * @param element        the element to set
+     * @param namespace      the namespace to set
      * @param schemaLocation the XML schema file location URI
      */
     public static void setNamespace(Element element, String namespace,
-            String schemaLocation) {
+                                    String schemaLocation) {
         element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI,
                 XMLConstants.XMLNS_ATTRIBUTE, namespace);
         element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, XMLNS_XSI,

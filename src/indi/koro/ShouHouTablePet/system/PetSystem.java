@@ -1,25 +1,22 @@
 /**
- *<p>文件名:PetSystem.java</p>
+ * <p>文件名:PetSystem.java</p>
+ *
  * @author 16415
- *创建时间：2019年7月30日 下午2:21:50
+ * 创建时间：2019年7月30日 下午2:21:50
  */
 package indi.koro.ShouHouTablePet.system;
 
-import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
-
-import javax.swing.SwingUtilities;
-
+import indi.koro.ShouHouTablePet.animation.Float;
 import indi.koro.ShouHouTablePet.data.Data;
-import indi.koro.ShouHouTablePet.main.Main;
+import indi.koro.ShouHouTablePet.listener.AnimationListener;
+import indi.koro.ShouHouTablePet.music.MusicPlayer;
+import indi.koro.ShouHouTablePet.shouhou.Shouhou;
 import indi.koro.ShouHouTablePet.window.MainWindow;
 import indi.koro.ShouHouTablePet.window.PetPanel;
 import indi.koro.ShouHouTablePet.window.ToolPanel;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *<p>项目名称：ShouHouTablePet</p>
@@ -31,51 +28,119 @@ import javafx.scene.media.MediaPlayer;
  */
 public class PetSystem {
     /**
-     * 
+     *
      */
     MainWindow mainWindow;
     PetPanel petPanel;
-    Pet pet;
-    TimerTask task;
-    Timer timer = new Timer(true);
+    MusicPlayer musicPlayer = new MusicPlayer();
+    Pet shouhou;
     ToolPanel toolPanel;
+    Float petFloat;
+    Timer timeMessage;
+
+    public class TimeMessage extends TimerTask {
+
+        @Override
+        public void run() {
+            待机();
+        }
+    }
+
     public PetSystem() {
-	// TODO 自动生成的构造函数存根
+        // TODO 自动生成的构造函数存根
     }
+
     public void start() {
-	mainWindow.show();
-	timer.schedule(task, 31,31);
-	
+        petPanel.reImage();
+        mainWindow.show();
+        petFloat.start();
+        Data.pets.get(Data.nowPet);
+        timeMessage.schedule(new TimeMessage(), 40000, 40000);
+        登录();
+        //Data.pet.setSkin("改造");
     }
+
+    public void 登录() {
+        musicPlayer.setURI(Data.pets.get(Data.nowPet).登录());
+        musicPlayer.play();
+    }
+
+    public void 信息() {
+
+    }
+
+    public void 待机() {
+        musicPlayer.setURI(Data.pets.get(Data.nowPet).待机());
+        musicPlayer.play();
+    }
+
+    public void modLoad() {
+        //即将。。。。。。。
+    }
+
+    public Float getPetFloat() {
+        return petFloat;
+    }
+
     public void load() {
-	mainWindow =new MainWindow();
-	Data.mainWindow=mainWindow;
-	pet=new Pet("data/shouhou");
-	Data.pet=pet;
-	petPanel=new PetPanel();
-	Data.petPanel=petPanel;
-	mainWindow.add(petPanel);
-	toolPanel=new ToolPanel();
-	Data.toolPanel=toolPanel;
-	mainWindow.add(toolPanel);
-	
-	task = new TimerTask() {
-	    @Override
-	    public void run() {// TODO 
-		Data.mainJWindow.repaint();
-	    }
-	};
-	this.setOnTop(true);
-	
+        mainWindow = new MainWindow();
+        shouhou = new Shouhou();
+        Data.mainWindow = mainWindow;
+        Data.pets.put("祥凤", shouhou);
+        petPanel = new PetPanel();
+        petFloat = new Float();
+        petFloat.setComponent(petPanel);
+        petFloat.setLoop(true);
+        petFloat.setTime(5000);
+        petFloat.setMoveX(0);
+        petFloat.addAnimationListeners(new AnimationListener() {
+            @Override
+            public void start() {
+
+            }
+
+            @Override
+            public void stop() {
+
+            }
+
+            @Override
+            public void pause() {
+
+            }
+
+            @Override
+            public void run() {
+
+            }
+
+            @Override
+            public void render() {
+                petPanel.paintImmediately(petPanel.getVisibleRect());
+            }
+        });
+        Data.petPanel = petPanel;
+        mainWindow.add(petPanel);
+        toolPanel = new ToolPanel();
+        Data.toolPanel = toolPanel;
+        mainWindow.add(toolPanel);
+        timeMessage = new Timer();
+        for (Pet pet : Data.pets.values()) {
+            pet.load();
+        }
+        this.setOnTop(true);
+
     }
+
     public void setOnTop(boolean b) {
-	mainWindow.setOnTop(b);
+        mainWindow.setOnTop(b);
     }
+
     public void reSize() {
-	Data.mainJWindow.setSize(Data.initialW+Data.initialToolW, Data.initialH);
-	Data.mainWindow.setSize(Data.initialW+Data.initialToolW, Data.initialH);
-	Data.petPanel.setSize(Data.initialW,Data.initialH);
-	Data.toolPanel.setBounds(Data.initialW, 0, Data.initialToolW, Data.initialH);
+        Data.mainJWindow.setSize(Data.initialW + Data.initialToolW, Data.initialH);
+        Data.mainWindow.setSize(Data.initialW + Data.initialToolW, Data.initialH);
+        Data.petPanel.setSize(Data.initialW, Data.initialH);
+        Data.toolPanel.setBounds(Data.initialW, 0, Data.initialToolW, Data.initialH);
     }
-	
+
 }

@@ -1,7 +1,8 @@
 /**
- *<p>文件名:module-info.java</p>
+ * <p>文件名:module-info.java</p>
+ *
  * @author 16415
- *创建时间：2019年7月29日 下午9:16:52
+ * 创建时间：2019年7月29日 下午9:16:52
  */
 /**
  *<p>项目名称：ShouHouTablePet</p>
@@ -19,5 +20,6 @@ module ShouHouTablePet {
     requires javafx.controls;
     requires javafx.web;
     requires javafx.base;
-    
+    requires slf4j.api;
+
 }

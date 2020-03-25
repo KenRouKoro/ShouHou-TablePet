@@ -1,106 +1,61 @@
 /**
- *<p>文件名:Pet.java</p>
+ * <p>文件名:Pet.java</p>
+ *
  * @author 16415
- *创建时间：2019年7月30日 下午9:17:41
+ * 创建时间：2019年7月30日 下午9:17:41
  */
 package indi.koro.ShouHouTablePet.system;
 
+import indi.koro.ShouHouTablePet.music.MusicPlayer;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
-import org.w3c.dom.Element;
-
-import indi.koro.ShouHouTablePet.xml.XmlUtils;
 
 
 /**
- *<p>项目名称：ShouHouTablePet</p>
- *<p>类名称:Pet</p>
+ * <p>项目名称：ShouHouTablePet</p>
+ * <p>类名称:Pet</p>
  * 作者： 16415
  * 版本：1.0
- *创建时间：2019年7月30日下午9:17:41
- *类描述:
+ * 创建时间：2019年7月30日下午9:17:41
+ * 类描述:
  */
-public class Pet {
-    HashMap<String, BufferedImage> skinHashMap=new HashMap<>();
-    String nameString=new String();
-    String skin=new String();
-    String file=new String();
-    /**
-     * 
-     */
-    public Pet(String file) {
-	this.file=file;
-	loadXML(file);
+public abstract class Pet {
+    protected HashMap<String, BufferedImage> images = new HashMap<>();
+    protected Image nowImege = null;
+    protected String skin = "";
+    protected MusicPlayer musicPlayer;
+
+    public abstract void setSkin(String skin);
+
+    public abstract void reImage();
+
+    public abstract void load();
+
+    public abstract void touch(double x, double y);
+
+    public abstract String 登录();
+
+    public abstract String 信息();
+
+    public abstract String 待机();
+
+    protected String skins[];
+
+    public Image getNowImege() {
+        return nowImege;
     }
-    /**
-     *<p>方法名：getFile</p>
-     *说明：TODO
-     */
-    public String getFile() {
-	return file;
+
+    public HashMap<String, BufferedImage> getImages() {
+        return images;
     }
-    /**
-     *<p>方法名：getSkinHashMap</p>
-     *说明：TODO
-     */
-    public HashMap<String, BufferedImage> getSkinHashMap() {
-	return skinHashMap;
-    }
-    /**
-     *<p>方法名：getSkin</p>
-     *说明：TODO
-     */
+
     public String getSkin() {
-	return skin;
+        return skin;
     }
-    /**
-     *<p>变量名：setSkin</p>
-     *说明：TODO
-     *
-     */
-    public void setSkin(String skin) {
-	this.skin = skin;
-    }
-    /**
-     *<p>方法名：getNameString</p>
-     *说明：TODO
-     */
-    public String getNameString() {
-	return nameString;
-    }
-    protected void loadXML(String file) {
-	InputStream in=null;
-	try {
-	    in = new FileInputStream(new File(file+"/main.xml"));
-	} catch (FileNotFoundException e1) {
-	    // TODO 自动生成的 catch 块
-	    e1.printStackTrace();
-	}//Pet.class.getResourceAsStream(file+"/main.xml");
-	Element root = XmlUtils.getRootElementFromStream(in);
-	nameString= XmlUtils.getElementValue(root, "name"); 
-	System.out.println(nameString);
-	List<Element> skins=XmlUtils.getChildElements(root, "skin");
-	boolean first=true;
-	for (Element skinElement : skins) {
-	    try {
-		System.out.println(file+"/"+XmlUtils.getElementValue(skinElement, "file")+"/"+new File(file+"/"+XmlUtils.getElementValue(skinElement, "file")+"/").list()[0]);
-		skinHashMap.put(XmlUtils.getElementValue(skinElement, "name"), ImageIO.read(new File(file+"/"+XmlUtils.getElementValue(skinElement, "file")+"/"+new File(file+"/"+XmlUtils.getElementValue(skinElement, "file")+"/").list()[0])));
-		if (first) {
-		    skin=XmlUtils.getElementValue(skinElement, "name");
-		    first=false;
-		}
-	    } catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	    }
-	}
+
+    public String[] getSkins() {
+        return skins;
     }
 }

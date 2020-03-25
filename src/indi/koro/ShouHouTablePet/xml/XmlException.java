@@ -2,6 +2,7 @@ package indi.koro.ShouHouTablePet.xml;
 
 
 //��java�ļ����� http://carver.iteye.com/blog/411611
+
 /**
  * Runtime exception for XML handling.
  *
