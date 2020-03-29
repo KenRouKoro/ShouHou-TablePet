@@ -9,6 +9,7 @@ package indi.koro.ShouHouTablePet.data;
 import indi.koro.ShouHouTablePet.system.Pet;
 import indi.koro.ShouHouTablePet.system.PetSystem;
 import indi.koro.ShouHouTablePet.window.MainWindow;
+import indi.koro.ShouHouTablePet.window.MessagePanel;
 import indi.koro.ShouHouTablePet.window.PetPanel;
 import indi.koro.ShouHouTablePet.window.ToolPanel;
 
@@ -26,7 +27,8 @@ import java.util.HashMap;
 public class Data {
     static public JWindow mainJWindow;
     static public MainWindow mainWindow;
-    static public final int initialW = 400, initialH = 440, initialToolW = 100;
+    static public MessagePanel messagePanel;
+    static public final int initialW = 400, initialH = 440, initialToolW = 120;
     static public PetPanel petPanel;
     static public PetSystem petSystem;
     static public HashMap<String, Pet> pets = new HashMap<>();

@@ -87,11 +87,9 @@ abstract public class Animation {
      */
 
     public Animation() {
-        // TODO 自动生成的构造函数存根
     }
 
     public Animation(Component component) {
-        // TODO 自动生成的构造函数存根
         this.component = component;
     }
 
@@ -159,7 +157,6 @@ abstract public class Animation {
         try {
             Thread.sleep((int) (1000f / (float) Data.fps));
         } catch (InterruptedException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
     }
@@ -171,7 +168,6 @@ abstract public class Animation {
          */
         @Override
         public void run() {
-            // TODO 自动生成的方法存根
             animation.run();
         }
 

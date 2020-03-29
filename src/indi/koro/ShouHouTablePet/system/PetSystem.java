@@ -12,6 +12,7 @@ import indi.koro.ShouHouTablePet.listener.AnimationListener;
 import indi.koro.ShouHouTablePet.music.MusicPlayer;
 import indi.koro.ShouHouTablePet.shouhou.Shouhou;
 import indi.koro.ShouHouTablePet.window.MainWindow;
+import indi.koro.ShouHouTablePet.window.MessagePanel;
 import indi.koro.ShouHouTablePet.window.PetPanel;
 import indi.koro.ShouHouTablePet.window.ToolPanel;
 
@@ -33,6 +34,7 @@ public class PetSystem {
     MainWindow mainWindow;
     PetPanel petPanel;
     MusicPlayer musicPlayer = new MusicPlayer();
+    MusicPlayer BGMPlayer = new MusicPlayer();
     Pet shouhou;
     ToolPanel toolPanel;
     Float petFloat;
@@ -55,7 +57,7 @@ public class PetSystem {
         mainWindow.show();
         petFloat.start();
         Data.pets.get(Data.nowPet);
-        timeMessage.schedule(new TimeMessage(), 40000, 40000);
+        timeMessage.schedule(new TimeMessage(), 60000, 60000);
         登录();
         //Data.pet.setSkin("改造");
     }
@@ -85,13 +87,16 @@ public class PetSystem {
     public void load() {
         mainWindow = new MainWindow();
         shouhou = new Shouhou();
+        MessagePanel messagePanel = new MessagePanel();
+        Data.messagePanel = messagePanel;
+        Data.petSystem = this;
         Data.mainWindow = mainWindow;
         Data.pets.put("祥凤", shouhou);
         petPanel = new PetPanel();
         petFloat = new Float();
         petFloat.setComponent(petPanel);
         petFloat.setLoop(true);
-        petFloat.setTime(5000);
+        petFloat.setTime(4500);
         petFloat.setMoveX(0);
         petFloat.addAnimationListeners(new AnimationListener() {
             @Override
@@ -120,6 +125,7 @@ public class PetSystem {
             }
         });
         Data.petPanel = petPanel;
+        mainWindow.add(messagePanel);
         mainWindow.add(petPanel);
         toolPanel = new ToolPanel();
         Data.toolPanel = toolPanel;
@@ -136,11 +142,18 @@ public class PetSystem {
         mainWindow.setOnTop(b);
     }
 
+    public void changeSkin(String skin) {
+        Data.pets.get(Data.nowPet).setSkin(skin);
+        Data.petPanel.reImage();
+    }
+
     public void reSize() {
         Data.mainJWindow.setSize(Data.initialW + Data.initialToolW, Data.initialH);
         Data.mainWindow.setSize(Data.initialW + Data.initialToolW, Data.initialH);
         Data.petPanel.setSize(Data.initialW, Data.initialH);
         Data.toolPanel.setBounds(Data.initialW, 0, Data.initialToolW, Data.initialH);
+        Data.pets.get(Data.nowPet).reImage();
+        Data.petPanel.reImage();
     }
 
 }

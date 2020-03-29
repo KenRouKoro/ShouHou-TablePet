@@ -52,11 +52,13 @@ public class Shouhou extends Pet {
 
     @Override
     public String 登录() {
+        Data.messagePanel.paintMessage("吾会守护指挥官的，这是吾毕生的职责！");
         return String.valueOf(Pet.class.getResource("/file/cue/登录.wav"));
     }
 
     @Override
     public String 信息() {
+        Data.messagePanel.paintMessage("指挥官，信~在你的头上~");
         return String.valueOf(Pet.class.getResource("/file/cue/邮件提醒 未改造.wav"));
     }
 
@@ -66,17 +68,38 @@ public class Shouhou extends Pet {
         System.out.println(i);
         switch (i) {
             case 0:
-                if (skin.equals(skins[0])) return String.valueOf(Pet.class.getResource("/file/cue/主界面1 未改造.wav"));
-                else if (skin.equals(skins[2])) return String.valueOf(Pet.class.getResource("/file/cue/主界面1 改造.wav"));
-                else return String.valueOf(Pet.class.getResource("/file/cue/主界面1 夜巡的魔女.wav"));
+                if (skin.equals(skins[0])) {
+                    Data.messagePanel.paintMessage("呀，指挥官，今天也是干劲十足的一天呢，吾已经准备好把那些蠢货痛扁一顿了～");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面1 未改造.wav"));
+                } else if (skin.equals(skins[1])) {
+                    Data.messagePanel.paintMessage("指挥官，给吾一个证明自己实力的机会吧！");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面1 改造.wav"));
+                } else {
+                    Data.messagePanel.paintMessage("Trick or treat!");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面1 夜巡的魔女.wav"));
+                }
             case 1:
-                if (skin.equals(skins[0])) return String.valueOf(Pet.class.getResource("/file/cue/主界面2 未改造.wav"));
-                else if (skin.equals(skins[2])) return String.valueOf(Pet.class.getResource("/file/cue/主界面2 改造.wav"));
-                else return String.valueOf(Pet.class.getResource("/file/cue/主界面2 夜巡的魔女.wav"));
+                if (skin.equals(skins[0])) {
+                    Data.messagePanel.paintMessage("我、吾平时都很受姐姐们的照顾……说实话真想快点成为能独当一面的人啊");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面2 未改造.wav"));
+                } else if (skin.equals(skins[1])) {
+                    Data.messagePanel.paintMessage("明明吾已经是大人了，为什么大家还把吾当成妹妹啊！");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面2 改造.wav"));
+                } else {
+                    Data.messagePanel.paintMessage("嘿嘿，吾果然是个美人胚子~");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面2 夜巡的魔女.wav"));
+                }
             case 2:
-                if (skin.equals(skins[0])) return String.valueOf(Pet.class.getResource("/file/cue/主界面3 未改造.wav"));
-                else if (skin.equals(skins[2])) return String.valueOf(Pet.class.getResource("/file/cue/主界面3 改造.wav"));
-                else return String.valueOf(Pet.class.getResource("/file/cue/主界面3 夜巡的魔女.wav"));
+                if (skin.equals(skins[0])) {
+                    Data.messagePanel.paintMessage("指挥官，今天天气这么好不要闷不做声啦！来，一~起~玩~嘛~");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面3 未改造.wav"));
+                } else if (skin.equals(skins[1])) {
+                    Data.messagePanel.paintMessage("大、大人也是需要游戏的！所以，指挥官，一~起~玩~嘛~");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面3 改造.wav"));
+                } else {
+                    Data.messagePanel.paintMessage("那些发狂的南瓜————到底是谁的恶作剧啊啊啊————！");
+                    return String.valueOf(Pet.class.getResource("/file/cue/主界面3 夜巡的魔女.wav"));
+                }
         }
 
         return null;
