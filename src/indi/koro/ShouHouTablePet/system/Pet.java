@@ -33,7 +33,7 @@ public abstract class Pet {
 
     public abstract void load();
 
-    public abstract void touch(double x, double y);
+    public abstract String 触摸(double x, double y);
 
     public abstract String 登录();
 

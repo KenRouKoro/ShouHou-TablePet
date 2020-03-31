@@ -71,7 +71,9 @@ public class MusicPlayer {
     }
 
     public void stop() {
-        musicMediaPlayer.stop();
+        if (musicMediaPlayer != null) {
+            musicMediaPlayer.stop();
+        }
     }
 
     public void pause() {

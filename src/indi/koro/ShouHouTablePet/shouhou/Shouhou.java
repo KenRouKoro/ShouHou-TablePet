@@ -13,6 +13,7 @@ import java.util.Random;
 public class Shouhou extends Pet {
     Random r = new Random(114154);
 
+
     public Shouhou() {
         skin = "祥凤-未改造";
         skins = new String[]{"祥凤-未改造", "祥凤-改造", "祥凤-夜巡的魔女"};
@@ -46,8 +47,9 @@ public class Shouhou extends Pet {
     }
 
     @Override
-    public void touch(double x, double y) {
-
+    public String 触摸(double x, double y) {
+        Data.messagePanel.paintMessage("虽然吾不在乎，但是最好别对其他人也这样！");
+        return String.valueOf(Pet.class.getResource("/file/cue/普通触摸 未改造.wav"));
     }
 
     @Override

@@ -12,6 +12,7 @@ public class MessagePanel extends JPanel {
     Thread thread;
 
     public class AutoRun implements Runnable {
+        public boolean stop = false;
         @Override
         public void run() {
             try {
@@ -19,7 +20,8 @@ public class MessagePanel extends JPanel {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                messagePanel.setVisible(false);
+                if (!stop)
+                    messagePanel.setVisible(false);
             }
 
         }
@@ -45,7 +47,7 @@ public class MessagePanel extends JPanel {
 
     public void paintMessage(String message) {
         text.setText("<html>" + message + "</html>");
-        if (thread != null) if (thread.isInterrupted() | thread.isAlive()) thread.interrupt();
+        if (thread != null) thread.stop();
         thread = new Thread(new AutoRun());
         thread.start();
         this.setVisible(true);

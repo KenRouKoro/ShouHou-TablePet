@@ -56,7 +56,12 @@ public class PetPanel extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                float X, Y;
+                X = e.getX() / Data.petPanel.getWidth();
+                Y = e.getY() / Data.petPanel.getHeight();
+                Data.petSystem.getMusicPlayer().stop();
+                Data.petSystem.getMusicPlayer().setURI(Data.pets.get(Data.nowPet).触摸(X, Y));
+                Data.petSystem.getMusicPlayer().play();
             }
 
             @Override

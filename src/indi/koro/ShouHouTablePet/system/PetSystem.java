@@ -62,7 +62,12 @@ public class PetSystem {
         //Data.pet.setSkin("改造");
     }
 
+    public MusicPlayer getMusicPlayer() {
+        return musicPlayer;
+    }
+
     public void 登录() {
+        musicPlayer.stop();
         musicPlayer.setURI(Data.pets.get(Data.nowPet).登录());
         musicPlayer.play();
     }
@@ -72,6 +77,7 @@ public class PetSystem {
     }
 
     public void 待机() {
+        musicPlayer.stop();
         musicPlayer.setURI(Data.pets.get(Data.nowPet).待机());
         musicPlayer.play();
     }
