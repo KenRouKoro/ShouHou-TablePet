@@ -73,13 +73,15 @@ abstract public class Animation {
             animationListener.stop();
         }
         stop = true;
+        if (thread != null) thread.stop();
     }
 
-    public void pause(boolean pause) {
+    public void pause() {
         for (AnimationListener animationListener : animationListeners) {
             animationListener.pause();
         }
-        this.pause = pause;
+        if (thread != null) thread.stop();
+        this.pause = true;
     }
 
     /**
@@ -119,19 +121,11 @@ abstract public class Animation {
                 while (frame < allFrame) {
                     render();
                     frame++;
-                    if (pause | stop) {
-                        if (!pause) frame = 0;
-                        break;
-                    }
                 }
                 if (repeat) {
                     while (frame > 0) {
                         render();
                         frame--;
-                        if (pause | stop) {
-                            if (!pause) frame = 0;
-                            break;
-                        }
                     }
                 }
                 frame = 0;
@@ -146,6 +140,9 @@ abstract public class Animation {
                     render();
                     frame--;
                 }
+            }
+            for (AnimationListener animationListener : animationListeners) {
+                animationListener.end();
             }
         }
     }
@@ -181,7 +178,7 @@ abstract public class Animation {
         thread = new Thread(new ARunnable());
         allFrame = (int) ((float) (time) / (1000f / (float) Data.fps));
         if (!pause) frame = 0;
-        else pause = false;
+        pause = false;
         stop = false;
         for (AnimationListener animationListener : animationListeners) {
             animationListener.start();

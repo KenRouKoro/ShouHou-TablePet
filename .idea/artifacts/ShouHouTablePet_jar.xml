@@ -1,16 +1,20 @@
 <component name="ArtifactManager">
   <artifact build-on-make="true" name="ShouHouTablePet:jar">
-    <output-path>H:/shouhou</output-path>
+    <output-path>G:/shouhou</output-path>
     <root id="root">
       <element id="archive" name="ShouHouTablePet.jar">
-        <element id="module-output" name="ShouHouTablePet" />
-        <element id="directory" name="file">
-          <element id="dir-copy" path="$PROJECT_DIR$/file" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
         </element>
+        <element id="module-output" name="ShouHouTablePet" />
       </element>
-      <element id="directory" name="lib">
+      <element id="directory" name="bin">
+        <element id="dir-copy" path="G:/Vdisk/javafx-sdk-11/bin" />
+      </element>
+      <element id="directory" name="libs">
+        <element id="file-copy" path="G:/Vdisk/javafx-sdk-11/lib/javafx.graphics.jar" />
+        <element id="file-copy" path="G:/JME3/jmonkeyplatform/libs/slf4j-api-1.7.7.jar" />
         <element id="library" level="project" name="lib" />
-        <element id="library" level="project" name="slf4j-api-1.7.7" />
       </element>
     </root>
   </artifact>

@@ -6,7 +6,6 @@
  */
 package indi.koro.ShouHouTablePet.main;
 
-import indi.koro.ShouHouTablePet.shouhou.Shouhou;
 import indi.koro.ShouHouTablePet.system.PetSystem;
 
 import javax.swing.*;
@@ -24,10 +23,10 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         String lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
         UIManager.setLookAndFeel(lookAndFeel);
-        System.out.println(String.valueOf(Shouhou.class.getResource("/file/image/祥凤.png")));
         PetSystem petSystem = new PetSystem();
         petSystem.load();
         petSystem.start();
+
 
     }
 }

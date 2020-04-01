@@ -15,12 +15,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- *<p>项目名称：ShouHouTablePet</p>
- *<p>类名称:PetPanel</p>
+ * <p>项目名称：ShouHouTablePet</p>
+ * <p>类名称:PetPanel</p>
  * 作者： 16415
  * 版本：1.0
- *创建时间：2019年8月8日下午2:37:41
- *类描述:
+ * 创建时间：2019年8月8日下午2:37:41
+ * 类描述:
  */
 public class PetPanel extends JPanel {
     /**
@@ -59,9 +59,7 @@ public class PetPanel extends JPanel {
                 float X, Y;
                 X = e.getX() / Data.petPanel.getWidth();
                 Y = e.getY() / Data.petPanel.getHeight();
-                Data.petSystem.getMusicPlayer().stop();
-                Data.petSystem.getMusicPlayer().setURI(Data.pets.get(Data.nowPet).触摸(X, Y));
-                Data.petSystem.getMusicPlayer().play();
+                Data.petSystem.触摸(X, Y);
             }
 
             @Override

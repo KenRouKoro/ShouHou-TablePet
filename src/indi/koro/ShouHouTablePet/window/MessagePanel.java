@@ -13,6 +13,7 @@ public class MessagePanel extends JPanel {
 
     public class AutoRun implements Runnable {
         public boolean stop = false;
+
         @Override
         public void run() {
             try {

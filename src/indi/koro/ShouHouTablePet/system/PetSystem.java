@@ -7,9 +7,11 @@
 package indi.koro.ShouHouTablePet.system;
 
 import indi.koro.ShouHouTablePet.animation.Float;
+import indi.koro.ShouHouTablePet.animation.Move;
 import indi.koro.ShouHouTablePet.data.Data;
 import indi.koro.ShouHouTablePet.listener.AnimationListener;
 import indi.koro.ShouHouTablePet.music.MusicPlayer;
+import indi.koro.ShouHouTablePet.plugin.Mod;
 import indi.koro.ShouHouTablePet.shouhou.Shouhou;
 import indi.koro.ShouHouTablePet.window.MainWindow;
 import indi.koro.ShouHouTablePet.window.MessagePanel;
@@ -20,12 +22,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *<p>项目名称：ShouHouTablePet</p>
- *<p>类名称:PetSystem</p>
+ * <p>项目名称：ShouHouTablePet</p>
+ * <p>类名称:PetSystem</p>
  * 作者： 16415
  * 版本：1.0
- *创建时间：2019年7月30日下午2:21:50
- *类描述:
+ * 创建时间：2019年7月30日下午2:21:50
+ * 类描述:
  */
 public class PetSystem {
     /**
@@ -37,8 +39,10 @@ public class PetSystem {
     MusicPlayer BGMPlayer = new MusicPlayer();
     Pet shouhou;
     ToolPanel toolPanel;
+    Move petMove;
     Float petFloat;
     Timer timeMessage;
+    protected boolean touch = false;
 
     public class TimeMessage extends TimerTask {
 
@@ -53,6 +57,9 @@ public class PetSystem {
     }
 
     public void start() {
+        for (Mod mod : Data.mods) {
+            mod.start();
+        }
         petPanel.reImage();
         mainWindow.show();
         petFloat.start();
@@ -82,15 +89,36 @@ public class PetSystem {
         musicPlayer.play();
     }
 
+    public void 触摸(float x, float y) {
+        if (!touch) {
+            musicPlayer.stop();
+            musicPlayer.setURI(Data.pets.get(Data.nowPet).触摸(x, y));
+            musicPlayer.play();
+            petFloat.pause();
+            petMove.start();
+        }
+    }
+
     public void modLoad() {
-        //即将。。。。。。。
+        Data.modLoader = new ModLoader();
+        Data.modLoader.modLoad();
+        Data.modLoader.petLoad();
     }
 
     public Float getPetFloat() {
         return petFloat;
     }
 
+    public void changePet(String name) {
+        Data.nowPet = name;
+        Data.petPanel.reImage();
+        登录();
+        Data.toolPanel.rePet();
+
+    }
+
     public void load() {
+        modLoad();
         mainWindow = new MainWindow();
         shouhou = new Shouhou();
         MessagePanel messagePanel = new MessagePanel();
@@ -100,6 +128,7 @@ public class PetSystem {
         Data.pets.put("祥凤", shouhou);
         petPanel = new PetPanel();
         petFloat = new Float();
+        petMove = new Move();
         petFloat.setComponent(petPanel);
         petFloat.setLoop(true);
         petFloat.setTime(4500);
@@ -129,6 +158,55 @@ public class PetSystem {
             public void render() {
                 petPanel.paintImmediately(petPanel.getVisibleRect());
             }
+
+            @Override
+            public void end() {
+
+            }
+        });
+        petMove.setComponent(petPanel);
+        petMove.setRepeat(true);
+        petMove.setTime(200);
+        petMove.setX(0);
+        petMove.setY(-20);
+        petMove.addAnimationListeners(new AnimationListener() {
+            @Override
+            public void start() {
+                touch = true;
+            }
+
+            @Override
+            public void stop() {
+
+            }
+
+            @Override
+            public void pause() {
+
+            }
+
+            @Override
+            public void run() {
+
+            }
+
+            @Override
+            public void render() {
+                petPanel.paintImmediately(petPanel.getVisibleRect());
+            }
+
+            @Override
+            public void end() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    touch = false;
+                    petFloat.start();
+                }
+
+            }
         });
         Data.petPanel = petPanel;
         mainWindow.add(messagePanel);
@@ -141,6 +219,10 @@ public class PetSystem {
             pet.load();
         }
         this.setOnTop(true);
+
+        for (Mod mod : Data.mods) {
+            mod.load();
+        }
 
     }
 

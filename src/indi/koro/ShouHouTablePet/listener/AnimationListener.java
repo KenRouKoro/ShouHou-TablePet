@@ -10,4 +10,6 @@ public interface AnimationListener {
     abstract public void run();
 
     abstract public void render();
+
+    abstract public void end();
 }

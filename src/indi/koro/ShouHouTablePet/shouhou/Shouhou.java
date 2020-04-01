@@ -16,6 +16,7 @@ public class Shouhou extends Pet {
 
     public Shouhou() {
         skin = "祥凤-未改造";
+        name = "祥凤";
         skins = new String[]{"祥凤-未改造", "祥凤-改造", "祥凤-夜巡的魔女"};
         musicPlayer = new MusicPlayer();
     }
@@ -67,7 +68,6 @@ public class Shouhou extends Pet {
     @Override
     public String 待机() {
         int i = r.nextInt(3);
-        System.out.println(i);
         switch (i) {
             case 0:
                 if (skin.equals(skins[0])) {

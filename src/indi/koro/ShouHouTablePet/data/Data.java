@@ -6,6 +6,8 @@
  */
 package indi.koro.ShouHouTablePet.data;
 
+import indi.koro.ShouHouTablePet.plugin.Mod;
+import indi.koro.ShouHouTablePet.system.ModLoader;
 import indi.koro.ShouHouTablePet.system.Pet;
 import indi.koro.ShouHouTablePet.system.PetSystem;
 import indi.koro.ShouHouTablePet.window.MainWindow;
@@ -14,6 +16,7 @@ import indi.koro.ShouHouTablePet.window.PetPanel;
 import indi.koro.ShouHouTablePet.window.ToolPanel;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -35,4 +38,6 @@ public class Data {
     static public int fps = 60;
     static public ToolPanel toolPanel;
     static public String nowPet = "祥凤";
+    static public ArrayList<Mod> mods = new ArrayList<>();
+    static public ModLoader modLoader;
 }

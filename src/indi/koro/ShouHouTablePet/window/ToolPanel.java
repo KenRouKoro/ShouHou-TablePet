@@ -7,11 +7,15 @@
 package indi.koro.ShouHouTablePet.window;
 
 import indi.koro.ShouHouTablePet.data.Data;
+import indi.koro.ShouHouTablePet.system.Pet;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 /**
  * <p>项目名称：ShouHouTablePet</p>
@@ -27,6 +31,8 @@ public class ToolPanel extends JPanel {
      */
     JComboBox skinComboBox;
     JLabel skinJLabel;
+    JComboBox petComboBox;
+    JLabel petJLabel;
     Box box;
     Font font;
 
@@ -51,7 +57,61 @@ public class ToolPanel extends JPanel {
         skinJLabel.setForeground(Color.white);
         skinJLabel.setHorizontalAlignment(JLabel.LEFT);
 
+        petJLabel = new JLabel("切换模型");
+        petJLabel.setSize(100, 20);
+        petJLabel.setFont(font);
+        petJLabel.setForeground(Color.white);
+        petJLabel.setHorizontalAlignment(JLabel.LEFT);
+
+        ArrayList<String> petNames = new ArrayList<>();
+        for (Pet pet : Data.pets.values()) {
+            petNames.add(pet.getName());
+        }
+        petComboBox = new JComboBox(petNames.toArray());
+        petComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Data.petSystem.changePet((String) petComboBox.getSelectedItem());
+            }
+        });
+
         box.add(skinJLabel);
         box.add(skinComboBox);
+        box.add(petJLabel);
+        box.add(petComboBox);
+        JButton jButton = new JButton("退出");
+        jButton.setSize(100, 20);
+        jButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        box.add(jButton);
+    }
+
+    public void rePet() {
+        skinComboBox.removeAllItems();
+        skinComboBox.addItem(Data.pets.get(Data.nowPet).getSkins());
     }
 }

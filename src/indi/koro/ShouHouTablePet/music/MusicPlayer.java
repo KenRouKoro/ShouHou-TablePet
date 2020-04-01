@@ -47,8 +47,8 @@ public class MusicPlayer {
     }
 
     /**
-     *<p>变量名：setURI</p>
-     *说明：TODO
+     * <p>变量名：setURI</p>
+     * 说明：TODO
      *
      * @param uRI
      */
@@ -63,8 +63,8 @@ public class MusicPlayer {
     }
 
     /**
-     *<p>方法名：getMusicMediaPlayer</p>
-     *说明：TODO
+     * <p>方法名：getMusicMediaPlayer</p>
+     * 说明：TODO
      */
     public MediaPlayer getMusicMediaPlayer() {
         return musicMediaPlayer;

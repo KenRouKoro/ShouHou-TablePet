@@ -26,12 +26,17 @@ public abstract class Pet {
     protected Image nowImege = null;
     protected String skin = "";
     protected MusicPlayer musicPlayer;
+    protected String name = new String();
 
     public abstract void setSkin(String skin);
 
     public abstract void reImage();
 
     public abstract void load();
+
+    public String getName() {
+        return name;
+    }
 
     public abstract String 触摸(double x, double y);
 
