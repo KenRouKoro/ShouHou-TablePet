@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: indi.koro.ShouHouTablePet.main.Main
-Class-Path: slf4j-api-1.7.7.jar javafx-swt.jar javafx.web.jar javafx.bas
- e.jar javafx.fxml.jar javafx.media.jar javafx.swing.jar javafx.controls
- .jar javafx.graphics.jar
-

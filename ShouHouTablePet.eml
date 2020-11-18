@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component jdk="11 (2)" jdk_type="JavaSDK">
+<component LANGUAGE_LEVEL="JDK_1_8" jdk="1.8" jdk_type="JavaSDK">
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<levels>
-		<level name="lib" value="project"/>
-		<level name="slf4j-api-1.7.7" value="project"/>
-	</levels>
 </component>

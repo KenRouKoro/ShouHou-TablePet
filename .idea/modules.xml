@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://D:/jar/Koro Swing Game Engine/Koro Swing Game Engine.iml" filepath="D:/jar/Koro Swing Game Engine/Koro Swing Game Engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShouHouTablePet.iml" filepath="$PROJECT_DIR$/ShouHouTablePet.iml" />
     </modules>
   </component>

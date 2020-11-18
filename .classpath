@@ -6,7 +6,9 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/lib"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/slf4j-api-1.7.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons-io-2.8.0-javadoc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fastjson-1.2.75-javadoc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/tween-engine-api-sources"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Koro Swing Game Engine"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
