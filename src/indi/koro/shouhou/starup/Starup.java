@@ -2,7 +2,7 @@ package indi.koro.shouhou.starup;
 
 import indi.koro.shouhou.frame.MainWindow;
 import indi.koro.shouhou.frame.WindowPanel;
-import indi.koro.shouhou.scene.LoadScene;
+import indi.koro.shouhou.scene.load.LoadScene;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.system.cmd.CMD;
 import indi.korostudio.ksge.system.main.GameStartup;
@@ -14,6 +14,7 @@ public class Starup extends GameStartup {
     public void load() {
         Data.mainFrame = frame = new MainWindow();
         Data.scenePanel = new WindowPanel();
+        Data.firstLoadImageFile.add("/file/res/load/map.json");
         runThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -21,6 +22,7 @@ public class Starup extends GameStartup {
             }
         });
         Data.sceneMap.put("load", new LoadScene());
+        Data.sceneMap.get("load").load();
         firstLoad();
         runThread.start();
     }

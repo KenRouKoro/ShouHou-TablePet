@@ -1,4 +1,4 @@
-package indi.koro.shouhou.scene;
+package indi.koro.shouhou.scene.main;
 
 import indi.korostudio.ksge.panel.Scene;
 
