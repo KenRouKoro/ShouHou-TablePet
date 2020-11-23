@@ -1,7 +1,6 @@
-package indi.koro.shouhou.scene.load;
+package indi.koro.shouhou.starup.load;
 
 
-import indi.koro.shouhou.component.LoadingComponent;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.panel.Scene;
 import indi.korostudio.ksge.system.image.ImageBase;
@@ -17,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class LoadScene extends Scene {
+
     protected TweenSystem in, out, lastout;
     protected TweenActuator inout;
     protected int nowImage = 1;
@@ -39,9 +39,9 @@ public class LoadScene extends Scene {
     @Override
     public void in() {
         setAlpha(0f);
-        in = TweenTool.SimpleTween(this, 4f, TweenImplements.ALPHA, 1f);
-        out = TweenTool.SimpleTween(this, 4f, TweenImplements.ALPHA, 0f);
-        lastout = TweenTool.SimpleTween(this, 4f, TweenImplements.ALPHA, 0f);
+        in = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 1f);
+        out = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 0f);
+        lastout = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 0f);
         inout = TweenTool.SimpleActuator(in, out);
         inout.setLoop(true);
         reImage();
@@ -80,6 +80,11 @@ public class LoadScene extends Scene {
         lastout.start();
     }
 
+    @Override
+    public String getSceneName() {
+        return "load";
+    }
+
     public void load() {
         this.setLayout(null);
         this.setBackground(Color.white);
@@ -87,11 +92,6 @@ public class LoadScene extends Scene {
         this.setAlpha(0f);
         font = new Font("Times New Roman", Font.BOLD, 40);
         strImage = Tool.stringImage(Color.GRAY, font, "loading......");
-        LoadingComponent loadingComponent = new LoadingComponent();
-        loadingComponent.start();
-        add(loadingComponent);
-
-        System.out.print(this);
     }
 
     public void reImage() {
@@ -102,7 +102,6 @@ public class LoadScene extends Scene {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        ((Graphics2D) g).drawString("test", 100, 100);
         g2d.drawImage(image, getWidth() - 350, getHeight() - 150, 150, 150, null);
         g2d.setFont(font);
         g2d.drawImage(strImage, getWidth() - 200, getHeight() - 50, null);

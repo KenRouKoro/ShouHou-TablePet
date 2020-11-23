@@ -1,5 +1,6 @@
 package indi.koro.shouhou.component;
 
+import aurelienribon.tweenengine.equations.Linear;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.panel.component.EngineComponent;
 import indi.korostudio.ksge.system.image.ImageBase;
@@ -13,15 +14,16 @@ import indi.korostudio.ksge.tween.TweenSystem;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class LoadingComponent extends EngineComponent {
-    protected TweenSystem rotate;
+    protected TweenSystem rotateTween;
     protected TweenActuator actuator;
-    protected BufferedImage image;
+    protected static ArrayList<BufferedImage> images = null;
 
     public LoadingComponent() {
-        setSize(50, 50);
-        rotate = TweenTool.SimpleTween(this, 10f, TweenImplements.ROTATE, 360).addTweenListener(new TweenListener() {
+        setSize(100, 100);
+        rotateTween = TweenTool.SimpleTween(this, 2f, TweenImplements.ROTATE, 360).addTweenListener(new TweenListener() {
             @Override
             public void start() {
 
@@ -42,12 +44,19 @@ public class LoadingComponent extends EngineComponent {
 
             }
         });
-        actuator = TweenTool.SimpleActuator(rotate);
+        rotateTween.setTweenMode(Linear.INOUT);
+        actuator = TweenTool.SimpleActuator(rotateTween);
         actuator.setLoop(true);
         if (ImageBase.get("loading-0") == null) {
             ImageLoader.loadJSONImage(Data.getRes("/file/res/loading/map.json"));
         }
-        image = Tool.reImageSize(ImageBase.get("loading-0"), 50, 50);
+        if (images == null) {
+            images = new ArrayList<>();
+            for (BufferedImage image : Tool.get360Image(ImageBase.get("loading-0"))) {
+                images.add(Tool.reImageSize(image, getWidth(), getHeight()));
+            }
+            System.gc();
+        }
     }
 
     public void start() {
@@ -59,7 +68,7 @@ public class LoadingComponent extends EngineComponent {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(image, 0, 0, null);
+        g2d.drawImage(images.get(rotate), 0, 0, null);
     }
 
     public void stop() {

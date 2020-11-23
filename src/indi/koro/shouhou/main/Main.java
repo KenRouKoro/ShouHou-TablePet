@@ -5,10 +5,9 @@ import indi.korostudio.ksge.data.Data;
 
 public class Main {
     public static void main(String arg0[]) {
-        System.out.println("Hello World !");
         Data.resClass = Main.class;
-        System.out.println(Data.getRes("file"));
-        Data.resize(800, 800);
+        Data.resize(600, 600);
+        Data.fps = 60;
         Starup starup = new Starup();
         starup.load();
 
