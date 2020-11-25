@@ -10,6 +10,5 @@ public class Main {
         Data.fps = 60;
         Starup starup = new Starup();
         starup.load();
-
     }
 }

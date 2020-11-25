@@ -14,16 +14,15 @@ import indi.korostudio.ksge.tween.TweenSystem;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class LoadingComponent extends EngineComponent {
     protected TweenSystem rotateTween;
     protected TweenActuator actuator;
-    protected static ArrayList<BufferedImage> images = null;
+    protected static BufferedImage image = null;
 
     public LoadingComponent() {
         setSize(100, 100);
-        rotateTween = TweenTool.SimpleTween(this, 2f, TweenImplements.ROTATE, 360).addTweenListener(new TweenListener() {
+        rotateTween = TweenTool.SimpleTween(this, 2f, TweenImplements.ROTATE, 4).addTweenListener(new TweenListener() {
             @Override
             public void start() {
 
@@ -50,12 +49,8 @@ public class LoadingComponent extends EngineComponent {
         if (ImageBase.get("loading-0") == null) {
             ImageLoader.loadJSONImage(Data.getRes("/file/res/loading/map.json"));
         }
-        if (images == null) {
-            images = new ArrayList<>();
-            for (BufferedImage image : Tool.get360Image(ImageBase.get("loading-0"))) {
-                images.add(Tool.reImageSize(image, getWidth(), getHeight()));
-            }
-            System.gc();
+        if (image == null) {
+            image = Tool.reImageSize(ImageBase.get("loading-0"), getWidth(), getHeight());
         }
     }
 
@@ -68,7 +63,8 @@ public class LoadingComponent extends EngineComponent {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(images.get(rotate), 0, 0, null);
+        g2d.rotate((Math.PI / 2) * (int) rotate, getWidth() / 2, getHeight() / 2);
+        g2d.drawImage(image, 0, 0, null);
     }
 
     public void stop() {
