@@ -3,6 +3,7 @@ package indi.koro.shouhou.starup;
 import indi.koro.shouhou.component.LoadingComponent;
 import indi.koro.shouhou.frame.MainWindow;
 import indi.koro.shouhou.frame.WindowPanel;
+import indi.koro.shouhou.pet.PetSystem;
 import indi.koro.shouhou.starup.load.LoadScene;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.panel.Scene;
@@ -14,6 +15,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Starup extends GameStartup {
+    protected PetSystem petSystem;
     @Override
     public void load() {
         Data.mainFrame = frame = new MainWindow();
@@ -27,8 +29,13 @@ public class Starup extends GameStartup {
         });
         Data.add(new LoadScene());
         Data.sceneMap.get("load").load();
+        petSystem = new PetSystem();
         firstLoad();
         runThread.start();
+    }
+
+    public PetSystem getPetSystem() {
+        return petSystem;
     }
 
     @Override

@@ -5,17 +5,17 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.util.ArrayList;
 
 public class Pet {
-    @JSONField(name = "name")
+    @JSONField(name = "name", ordinal = 1)
     protected String petName = null;
-    @JSONField(name = "file")
+    @JSONField(name = "file", ordinal = 2)
     protected String JSONFileString = null;
-    @JSONField(name = "skinsname")
+    @JSONField(name = "skinsname", ordinal = 3)
     protected ArrayList<String> skinName;
-    @JSONField(name = "skinfilename")
+    @JSONField(name = "skinfilename", ordinal = 4)
     protected ArrayList<String> skinFileMame;
-    @JSONField(name = "specialTouch")
+    @JSONField(name = "specialTouch", ordinal = 5)
     protected int[] specialTouch;
-    @JSONField(name = "hear")
+    @JSONField(name = "hear", ordinal = 6)
     protected int[] hear;
 
     public void setHear(int[] hear) {

@@ -19,6 +19,7 @@ public class LoadingComponent extends EngineComponent {
     protected TweenSystem rotateTween;
     protected TweenActuator actuator;
     protected static BufferedImage image = null;
+    protected boolean start = false;
 
     public LoadingComponent() {
         setSize(100, 100);
@@ -55,6 +56,7 @@ public class LoadingComponent extends EngineComponent {
     }
 
     public void start() {
+        start = true;
         setVisible(true);
         actuator.start();
     }
@@ -69,6 +71,10 @@ public class LoadingComponent extends EngineComponent {
 
     public void stop() {
         actuator.setLoop(false);
+        start = false;
     }
 
+    public boolean isStart() {
+        return start;
+    }
 }
