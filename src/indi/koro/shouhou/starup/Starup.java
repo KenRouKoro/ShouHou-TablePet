@@ -29,7 +29,7 @@ public class Starup extends GameStartup {
         });
         Data.add(new LoadScene());
         Data.sceneMap.get("load").load();
-        petSystem = new PetSystem();
+        petSystem = PetSystem.getPetSystem();
         firstLoad();
         runThread.start();
     }
@@ -72,6 +72,7 @@ public class Starup extends GameStartup {
         }
         super.afterLoad();
         System.out.println("LOADTHREAD:Done!");
+        CMD.run("show main");
     }
 
     protected void newCom() {

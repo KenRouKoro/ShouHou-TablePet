@@ -1,5 +1,6 @@
 package indi.koro.shouhou.scene.main;
 
+import aurelienribon.tweenengine.equations.Linear;
 import aurelienribon.tweenengine.equations.Sine;
 import indi.koro.shouhou.component.LoadingComponent;
 import indi.koro.shouhou.pet.Pet;
@@ -30,7 +31,7 @@ public class MainScene extends Scene {
     protected boolean isTuo = false;
     protected static Point origin = new Point();
     protected Pet pet;
-    protected PetSystem petSystem;
+    protected PetSystem petSystem = PetSystem.getPetSystem();
 
     @Override
     public String getSceneName() {
@@ -49,7 +50,7 @@ public class MainScene extends Scene {
         setSize(Data.mainDimension);
         Data.addLast("/file/image/祥凤/map.json");
         petPanel = new ImagePanel();
-        petPanel.setBounds((int) (getWidth() * 0.05), (int) (getHeight() * 0.05), (int) (getWidth() * 0.9), (int) (getHeight() * 0.9));
+        petPanel.setBounds(0, (int) (getWidth() * 0.2), (int) (getWidth() * 0.8), (int) (getHeight() * 0.8));
         add(petPanel);
         petSystem = ((Starup) Data.gameStartup).getPetSystem();
         setUpDown();
@@ -105,7 +106,7 @@ public class MainScene extends Scene {
     }
 
     protected void setUpDown() {
-        up = TweenTool.SimpleTween(petPanel, 5f, TweenImplements.Y, 0);
+        up = TweenTool.SimpleTween(petPanel, 5f, TweenImplements.Y, getHeight() * 0.05f);
         up.setTweenMode(Sine.INOUT);
         down = TweenTool.SimpleTween(petPanel, 5f, TweenImplements.Y, getHeight() - petPanel.getHeight());
         down.setTweenMode(Sine.INOUT);
@@ -114,7 +115,10 @@ public class MainScene extends Scene {
     }
 
     public void jump() {
-        jump = TweenTool.SimpleActuator(TweenTool.SimpleTween(petPanel, 1f, TweenImplements.Y, 0), TweenTool.SimpleTween(petPanel, 1f, TweenImplements.Y, getHeight() - petPanel.getHeight()));
+        TweenSystem jumps = new TweenSystem();
+        jumps.setTimeline(true);
+        jumps.addTimeLineDo(TweenTool.SimpleTimeLine(petPanel, TweenImplements.Y, 0.4f, 1, Linear.INOUT, 0, petPanel.getY()));
+        jump = TweenTool.SimpleActuator(jumps);
         jump.addTweenListener(new TweenListener() {
             @Override
             public void start() {
@@ -136,15 +140,15 @@ public class MainScene extends Scene {
 
             }
         });
-        updown.stop();
-        setUpDown();
+        TweenActuator tweenActuator = updown;
+        tweenActuator.pause();
         jump.start();
     }
 
     @Override
     public void in() {
         setAlpha(0);
-        petPanel.setImage(Tool.reImageSize(ImageBase.get("shouhou-2"), (int) (getWidth() * 0.9), (int) (getHeight() * 0.9)));
+        petPanel.setImage(Tool.reImageSize(ImageBase.get("shouhou-2"), (int) (getWidth() * 0.8), (int) (getHeight() * 0.8)));
         setVisible(true);
         in = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 1f);
         in.start();
