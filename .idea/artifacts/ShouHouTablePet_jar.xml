@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ShouHouTablePet:jar">
+    <output-path>$USER_HOME$/Documents</output-path>
+    <root id="archive" name="ShouHouTablePet.jar">
+      <element id="module-output" name="Koro Swing Game Engine" />
+      <element id="module-output" name="ShouHouTablePet" />
+      <element id="extracted-dir" path="D:/jar/Koro Swing Game Engine/jar/tween-engine-api.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/jar/Koro Swing Game Engine/jar/fastjson-1.2.75.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/jar/Koro Swing Game Engine/jar/commons-io-2.8.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

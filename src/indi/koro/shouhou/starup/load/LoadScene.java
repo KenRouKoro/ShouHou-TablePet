@@ -1,12 +1,12 @@
 package indi.koro.shouhou.starup.load;
 
 
+import aurelienribon.tweenengine.equations.Linear;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.panel.Scene;
 import indi.korostudio.ksge.system.image.ImageBase;
 import indi.korostudio.ksge.tool.Tool;
 import indi.korostudio.ksge.tool.TweenTool;
-import indi.korostudio.ksge.tween.TweenActuator;
 import indi.korostudio.ksge.tween.TweenImplements;
 import indi.korostudio.ksge.tween.TweenListener;
 import indi.korostudio.ksge.tween.TweenSystem;
@@ -17,8 +17,7 @@ import java.util.Random;
 
 public class LoadScene extends Scene {
 
-    protected TweenSystem in, out, lastout;
-    protected TweenActuator inout;
+    protected TweenSystem lastout, inout;
     protected int nowImage = 1;
     protected Random r = new Random();
     protected Font font;
@@ -39,11 +38,15 @@ public class LoadScene extends Scene {
     @Override
     public void in() {
         setAlpha(0f);
+        /*
         in = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 1f);
         out = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 0f);
-        lastout = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 0f);
         inout = TweenTool.SimpleActuator(in, out);
-        inout.setLoop(true);
+        */
+        lastout = TweenTool.SimpleTween(this, 2f, TweenImplements.ALPHA, 0f);
+        inout = new TweenSystem();
+        inout.addTimeLineDo(TweenTool.SimpleTimeLine(this, TweenImplements.ALPHA, 2f, 1, Linear.INOUT, 1f, 0f));
+        inout.loop(true);
         reImage();
         Data.scenePanel.add(this);
         this.setVisible(true);

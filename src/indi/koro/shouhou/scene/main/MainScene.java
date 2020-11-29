@@ -3,6 +3,7 @@ package indi.koro.shouhou.scene.main;
 import aurelienribon.tweenengine.equations.Linear;
 import aurelienribon.tweenengine.equations.Sine;
 import indi.koro.shouhou.component.LoadingComponent;
+import indi.koro.shouhou.component.TextPanel;
 import indi.koro.shouhou.pet.Pet;
 import indi.koro.shouhou.pet.PetSystem;
 import indi.koro.shouhou.starup.Starup;
@@ -13,7 +14,6 @@ import indi.korostudio.ksge.system.image.ImageBase;
 import indi.korostudio.ksge.system.image.ImageLoader;
 import indi.korostudio.ksge.tool.Tool;
 import indi.korostudio.ksge.tool.TweenTool;
-import indi.korostudio.ksge.tween.TweenActuator;
 import indi.korostudio.ksge.tween.TweenImplements;
 import indi.korostudio.ksge.tween.TweenListener;
 import indi.korostudio.ksge.tween.TweenSystem;
@@ -24,14 +24,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MainScene extends Scene {
-    protected TweenSystem in, out, up, down;
-    protected TweenActuator updown, jump;
+    protected TweenSystem in, updown;
     protected ImagePanel petPanel;
     protected LoadingComponent load;
     protected boolean isTuo = false;
     protected static Point origin = new Point();
     protected Pet pet;
     protected PetSystem petSystem = PetSystem.getPetSystem();
+    protected boolean jumping = false;
+    protected TweenSystem jump = null;
+    protected TextPanel textPanel;
 
     @Override
     public String getSceneName() {
@@ -39,7 +41,8 @@ public class MainScene extends Scene {
     }
 
     public void touch(MouseEvent event) {
-        petSystem.touch(1 - event.getX() / petPanel.getWidth(), 1 - event.getY() / petPanel.getWidth());
+        if (jump != null) if (jump.isRunning()) return;
+        if (!petSystem.touch(1 - event.getX() / petPanel.getWidth(), 1 - event.getY() / petPanel.getWidth())) return;
         jump();
     }
 
@@ -49,6 +52,9 @@ public class MainScene extends Scene {
         setAlpha(0);
         setSize(Data.mainDimension);
         Data.addLast("/file/image/祥凤/map.json");
+        textPanel = new TextPanel();
+        petSystem.setTextPanel(textPanel);
+        add(textPanel);
         petPanel = new ImagePanel();
         petPanel.setBounds(0, (int) (getWidth() * 0.2), (int) (getWidth() * 0.8), (int) (getHeight() * 0.8));
         add(petPanel);
@@ -106,42 +112,40 @@ public class MainScene extends Scene {
     }
 
     protected void setUpDown() {
-        up = TweenTool.SimpleTween(petPanel, 5f, TweenImplements.Y, getHeight() * 0.05f);
-        up.setTweenMode(Sine.INOUT);
-        down = TweenTool.SimpleTween(petPanel, 5f, TweenImplements.Y, getHeight() - petPanel.getHeight());
-        down.setTweenMode(Sine.INOUT);
-        updown = TweenTool.SimpleActuator(up, down);
-        updown.setLoop(true);
+        updown = new TweenSystem();
+        updown.addTimeLineDo(TweenTool.SimpleTimeLine(petPanel, TweenImplements.Y, 5f, 1, Sine.INOUT, getHeight() * 0.05f, getHeight() - petPanel.getHeight()));
+        updown.loop(true);
     }
 
     public void jump() {
-        TweenSystem jumps = new TweenSystem();
-        jumps.setTimeline(true);
-        jumps.addTimeLineDo(TweenTool.SimpleTimeLine(petPanel, TweenImplements.Y, 0.4f, 1, Linear.INOUT, 0, petPanel.getY()));
-        jump = TweenTool.SimpleActuator(jumps);
-        jump.addTweenListener(new TweenListener() {
-            @Override
-            public void start() {
+        if (jump == null) {
+            jump = new TweenSystem();
+            jump.setTimeline(true);
+            jump.addTweenListener(new TweenListener() {
+                @Override
+                public void start() {
 
-            }
+                }
 
-            @Override
-            public void finish() {
-                updown.start();
-            }
+                @Override
+                public void finish() {
+                    updown.start();
+                }
 
-            @Override
-            public void pause() {
+                @Override
+                public void pause() {
 
-            }
+                }
 
-            @Override
-            public void stop() {
+                @Override
+                public void stop() {
 
-            }
-        });
-        TweenActuator tweenActuator = updown;
-        tweenActuator.pause();
+                }
+            });
+        }
+        jump.removeALLTimeLineDo();
+        jump.addTimeLineDo(TweenTool.SimpleTimeLine(petPanel, TweenImplements.Y, 0.4f, 1, Linear.INOUT, 0, petPanel.getY()));
+        updown.pause();
         jump.start();
     }
 

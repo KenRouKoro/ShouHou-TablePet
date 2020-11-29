@@ -1,6 +1,7 @@
 package indi.koro.shouhou.pet;
 
 import com.alibaba.fastjson.JSON;
+import indi.koro.shouhou.component.TextPanel;
 import indi.koro.shouhou.scene.main.MainScene;
 import indi.korostudio.ksge.data.Data;
 import indi.korostudio.ksge.tool.MusicPlayer;
@@ -10,10 +11,22 @@ public class PetSystem {
     protected MainScene mainScene = null;
     protected MusicPlayer cuePlayer;
     protected static PetSystem petSystem = new PetSystem();
+    protected TextPanel textPanel;
 
-    public void touch(double x, double y) {
+    public void setTextPanel(TextPanel textPanel) {
+        this.textPanel = textPanel;
+    }
+
+    public boolean touch(double x, double y) {
+        if (cuePlayer.isPlaying()) return false;
+        textPanel.showThis("虽然吾不在乎，但是最好别对其他人也这样！");
         cuePlayer.setURI(Data.getRes("/file/cue/普通触摸 未改造.wav"));
+        cuePlayer.setStopCallBacks(() -> {
+            textPanel.end();
+            cuePlayer.removeALLStopCallBacls();
+        });
         cuePlayer.play();
+        return true;
     }
 
     public static PetSystem getPetSystem() {

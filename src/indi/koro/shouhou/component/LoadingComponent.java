@@ -7,7 +7,6 @@ import indi.korostudio.ksge.system.image.ImageBase;
 import indi.korostudio.ksge.system.image.ImageLoader;
 import indi.korostudio.ksge.tool.Tool;
 import indi.korostudio.ksge.tool.TweenTool;
-import indi.korostudio.ksge.tween.TweenActuator;
 import indi.korostudio.ksge.tween.TweenImplements;
 import indi.korostudio.ksge.tween.TweenListener;
 import indi.korostudio.ksge.tween.TweenSystem;
@@ -17,7 +16,6 @@ import java.awt.image.BufferedImage;
 
 public class LoadingComponent extends EngineComponent {
     protected TweenSystem rotateTween;
-    protected TweenActuator actuator;
     protected static BufferedImage image = null;
     protected boolean start = false;
 
@@ -45,8 +43,7 @@ public class LoadingComponent extends EngineComponent {
             }
         });
         rotateTween.setTweenMode(Linear.INOUT);
-        actuator = TweenTool.SimpleActuator(rotateTween);
-        actuator.setLoop(true);
+        rotateTween.loop(true);
         if (ImageBase.get("loading-0") == null) {
             ImageLoader.loadJSONImage(Data.getRes("/file/res/loading/map.json"));
         }
@@ -58,7 +55,7 @@ public class LoadingComponent extends EngineComponent {
     public void start() {
         start = true;
         setVisible(true);
-        actuator.start();
+        rotateTween.start();
     }
 
     @Override
@@ -70,7 +67,7 @@ public class LoadingComponent extends EngineComponent {
     }
 
     public void stop() {
-        actuator.setLoop(false);
+        rotateTween.stop();
         start = false;
     }
 
