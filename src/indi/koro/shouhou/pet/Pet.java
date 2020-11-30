@@ -18,6 +18,9 @@ public class Pet {
     @JSONField(name = "hear", ordinal = 6)
     protected int[] hear;
 
+    @JSONField(name = "touchtext")
+
+
     public void setHear(int[] hear) {
         this.hear = hear;
     }

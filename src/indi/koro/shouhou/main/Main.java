@@ -5,6 +5,7 @@ import indi.korostudio.ksge.data.Data;
 
 public class Main {
     public static void main(String arg0[]) {
+        System.setProperty("sun.java2d.opengl", "true");
         Data.resClass = Main.class;
         Data.resize(600, 600);
         Data.fps = 60;
