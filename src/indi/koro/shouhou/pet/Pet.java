@@ -17,8 +17,8 @@ public class Pet {
     protected int[] specialTouch;
     @JSONField(name = "hear", ordinal = 6)
     protected int[] hear;
-
-    @JSONField(name = "touchtext")
+    @JSONField(name = "touchtext", ordinal = 7)
+    protected ArrayList<String> text;
 
 
     public void setHear(int[] hear) {

@@ -12,6 +12,8 @@ public class PetSystem {
     protected MusicPlayer cuePlayer;
     protected static PetSystem petSystem = new PetSystem();
     protected TextPanel textPanel;
+    protected String nowTouchPlaying = "/file/cue/普通触摸 未改造.wav";
+    protected String nowTouchText = "虽然吾不在乎，但是最好别对其他人也这样！";
 
     public void setTextPanel(TextPanel textPanel) {
         this.textPanel = textPanel;
@@ -19,8 +21,8 @@ public class PetSystem {
 
     public boolean touch(double x, double y) {
         if (cuePlayer.isPlaying()) return false;
-        textPanel.showThis("虽然吾不在乎，但是最好别对其他人也这样！");
-        cuePlayer.setURI(Data.getRes("/file/cue/普通触摸 未改造.wav"));
+        textPanel.showThis(nowTouchText);
+        cuePlayer.setURI(Data.getRes(nowTouchPlaying));
         cuePlayer.setStopCallBacks(() -> {
             textPanel.end();
             cuePlayer.removeALLStopCallBacls();
